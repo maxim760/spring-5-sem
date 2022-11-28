@@ -41,8 +41,6 @@ public class GoodsService {
         if(goodsItem.getPrice() <= 0) {
             throw new Exception("Цена должна быть больше нуля");
         }
-        System.out.println("prudct size:" + goodsItem.getProducts().size());
-        System.out.println("prudct 0:" + goodsItem.getProducts().get(0).getName());
         if(goodsItem.getProducts().size() == 0) {
             throw new Exception("Вы не выбрали ингридиенты");
         }

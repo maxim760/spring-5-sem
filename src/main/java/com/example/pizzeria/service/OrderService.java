@@ -30,7 +30,6 @@ public class OrderService {
     private int deliveryPrice;
 
     public OrderEntity createOrder(CreateOrderDTO orderDTO, UserEntity currentUser) throws Exception {
-        System.out.println("create order 1");
         if(orderDTO.getGoodsIds().size() == 0) {
             throw new Exception("В заказе должен быть минимум 1 товар");
         }
@@ -40,7 +39,6 @@ public class OrderService {
         String createDate = formatter.format(currentDate);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         Long timestampTime = timestamp.getTime();
-        System.out.println("create order 2");
         Map<UUID, Integer> hm = new HashMap<>();
         for(UUID id: orderDTO.getGoodsIds()) {
             hm.put(id, hm.getOrDefault(id, 0) + 1);
@@ -54,7 +52,6 @@ public class OrderService {
             newOrder.addGoods(goodsItemFromDb);
             price += goodsItemFromDb.getCurrentPrice();
         }
-        System.out.println("create order 3");
         newOrder.setUser(currentUser);
         newOrder.setDateCreate(createDate);
 
@@ -62,7 +59,6 @@ public class OrderService {
         if(withDelivery) {
             price += deliveryPrice;
         }
-        System.out.println("create order 4");
         if(price > currentUser.getCash()) {
             throw new Exception("Недостаточно денег на балансе");
         }
@@ -70,15 +66,12 @@ public class OrderService {
         currentUser.setCash(currentUser.getCash() - price);
         newOrder.setTimestamp(timestampTime);
         newOrder.setWithDelivery(withDelivery);
-        System.out.println("create order 5");
         System.out.println(newOrder.getId());
         for(GoodsEntity goodsItem: newOrder.getGoods()) {
             goodsRepo.save(goodsItem);
         }
-        System.out.println("create order 6");
         orderRepo.save(newOrder);
         userRepo.save(currentUser);
-        System.out.println("create order 7");
         return newOrder;
 
     }

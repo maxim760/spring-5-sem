@@ -38,7 +38,6 @@ public class Utilities {
         return !item.getProducts().stream().anyMatch(i -> i.getCount() <= 0);
     }
     static public List<GoodsWithCount> getGoodsWithCount(List<GoodsEntity> list) {
-        System.out.println("12345");
         return GoodsWithCount.toModel(list);
     }
 }

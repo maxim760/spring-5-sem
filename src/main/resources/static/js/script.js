@@ -6,7 +6,6 @@ const buttonsAddOrder = document.querySelectorAll(".button-add-order")
 const addedGoods = document.querySelector("#collection-added-goods")
 const filterOrderForm = document.querySelector("#filter-order-form")
 const checkboxWithDelivery = document.querySelector("#withDelivery")
-window.printInputs = () => [...formCreateOrder.querySelectorAll("input")]
 if(toastBtn) {
     toastBtn.addEventListener("click", (e) => {
         e?.target?.closest?.(".toast")?.remove?.()
