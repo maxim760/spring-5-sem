@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class Utilities {
@@ -19,7 +17,9 @@ public class Utilities {
     }
 
     static public SimpleDateFormat getDefaultDateFormat() {
-        return new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("ru"));
+        formatter.setTimeZone(TimeZone.getTimeZone("Europe/Moscow"));
+        return formatter;
     }
 
     static public List<CertificateEntity> sortCertificates(List<CertificateEntity> list) {
