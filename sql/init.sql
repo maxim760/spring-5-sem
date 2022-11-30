@@ -137,7 +137,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `user_id`, `date_create`, `with_delivery`, `price`, `timestamp`) VALUES
                                                                                                  (0x02c15ef4997142c496bfcd614ae5de27, 0x282e46a41f4e4f57b7f67f75da5c2523, '23 окт. 2022 14:16:56', 0, 2137, 1666523816999),
-                                                                                                 (0x2ed92e6c1a3d45d9b187da4ab4cc8608, NULL, '28 окт. 2022 00:54:06', 0, 1942, 1666907646028),
+                                                                                                 (0x2ed92e6c1a3d45d9b187da4ab4cc8608, 0x282e46a41f4e4f57b7f67f75da5c2523, '28 окт. 2022 00:54:06', 0, 1942, 1666907646028),
                                                                                                  (0x3ea69d81e5b04f8cac57c7e87fee788c, 0x282e46a41f4e4f57b7f67f75da5c2523, '27 окт. 2022 14:32:52', 0, 1560, 1666870372274),
                                                                                                  (0x5a151c7794044055b0d41bef8848c796, 0x282e46a41f4e4f57b7f67f75da5c2523, '23 окт. 2022 14:16:31', 0, 2519, 1666523791250),
                                                                                                  (0x656d7fd5b920475f9a6ce2a5113d470d, 0x282e46a41f4e4f57b7f67f75da5c2523, '23 окт. 2022 14:17:56', 0, 1237, 1666523876500),
@@ -624,7 +624,7 @@ ALTER TABLE `certificates`
 -- Ограничения внешнего ключа таблицы `orders`
 --
 ALTER TABLE `orders`
-    ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
+    ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `order_goods`
@@ -667,16 +667,6 @@ BEGIN
         on goods.id = product_goods.goods_id
         set count = count - 1
     where goods.id = new.goods_id;
-END;;
-DELIMITER ;
-
-DELIMITER ;;
-CREATE TRIGGER goods_BEFORE_INSERT
-    BEFORE INSERT
-    ON `goods` FOR EACH ROW
-BEGIN
-	set new.discount=10;
-    set new.current_price=new.price*0.9;
 END;;
 DELIMITER ;
 

@@ -12,6 +12,7 @@ import java.util.UUID;
 @Repository
 public interface OrderRepo extends JpaRepository<OrderEntity, UUID> {
     public List<OrderEntity> findAllByUser_IdOrderByTimestampDesc(UUID userId);
+    public List<OrderEntity> findAllByOrderByTimestampDesc();
     default List<OrderEntity> getAllOrders(UUID userId) {
         return findAllByUser_IdOrderByTimestampDesc(userId);
     }

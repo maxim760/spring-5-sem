@@ -78,7 +78,7 @@ public class OrderService {
 
     public List<OrderEntity> getOrders(UserEntity user) {
         if(user.getRoles().stream().anyMatch(item -> item.getAuthority().equals("ADMIN"))) {
-            return orderRepo.findAll();
+            return orderRepo.findAllByOrderByTimestampDesc();
         }
         return orderRepo.getAllOrders(user.getId());
     }
